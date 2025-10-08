@@ -284,3 +284,5 @@ Bring software engineering tools to computational design. Automated quality chec
   <a href="mcp/CLAUDE_SETUP.md">Setup MCP Version</a> •
   <a href="mcp/FORMAT_COMPARISON.md">Compare Versions</a>
 </p>
+
+
