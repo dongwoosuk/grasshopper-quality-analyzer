@@ -1,237 +1,237 @@
-# 🎯 두 가지 분석 방식 비교
+# 🎯 Comparison of Two Analysis Methods
 
-## 결론: **둘 다 지원합니다!**
+## Conclusion: **Both are Supported!**
 
-시스템이 **GHX 직접 분석**과 **JSON 분석** 모두를 지원하도록 업데이트되었습니다.
-
----
-
-## 📊 두 방식 상세 비교
-
-### 방식 1: GHX 직접 분석 (새로 추가!) ✨
-```
-dual_save.ghx → Claude 분석
-```
-
-**장점:**
-- ✅ **가장 간단**: 저장된 GHX 파일만 있으면 즉시 분석
-- ✅ **추가 작업 불필요**: Grasshopper에서 아무것도 안 해도 됨
-- ✅ **빠름**: 파일만 드래그하면 끝
-
-**단점:**
-- ⚠️ **정확도 약간 낮음**: XML 파싱 기반이라 일부 정보 누락 가능
-- ⚠️ **와이어 연결 정보 제한적**: 복잡한 연결 구조는 완벽히 파악 못함
-
-**추천 상황:**
-- 빠른 개요 확인
-- 기본적인 lint 검사
-- 컴포넌트 개수/종류 파악
+The system has been updated to support both **direct GHX analysis** and **JSON analysis**.
 
 ---
 
-### 방식 2: JSON 내보내기 후 분석 (기존 방식)
+## 📊 Detailed Comparison
+
+### Method 1: Direct GHX Analysis (New!) ✨
 ```
-Grasshopper → export_to_json.py 실행 → JSON → Claude 분석
+dual_save.ghx → Claude analysis
 ```
 
-**장점:**
-- ✅ **100% 정확**: Grasshopper API 직접 사용
-- ✅ **완벽한 정보**: 와이어, 데이터 트리 접근, 슬라이더 값 등 모든 정보
-- ✅ **상세 분석 가능**: 복잡한 lint 규칙, 데이터 플로우 분석
+**Advantages:**
+- ✅ **Simplest**: Analyze immediately with just a saved GHX file
+- ✅ **No extra steps**: Nothing needed in Grasshopper
+- ✅ **Fast**: Just drag the file and done
 
-**단점:**
-- ⚠️ **한 단계 더 필요**: GHPython 스크립트 실행해야 함
-- ⚠️ **GH 실행 필요**: Grasshopper가 열려있어야 함
+**Disadvantages:**
+- ⚠️ **Slightly lower accuracy**: XML parsing may miss some information
+- ⚠️ **Limited wire connection info**: Complex connection structures may not be fully captured
 
-**추천 상황:**
-- 상세한 분석 필요
-- 성능 최적화
-- 리팩토링 계획
-- 정확한 lint 검사
+**Recommended for:**
+- Quick overview checks
+- Basic lint inspection
+- Component count/type identification
 
 ---
 
-## 🎯 사용 시나리오별 추천
-
-### 시나리오 1: 빠른 체크 ⚡
+### Method 2: JSON Export then Analysis (Original method)
 ```
-상황: 파일 저장했고, 간단히 이슈만 확인하고 싶음
-방법: GHX 직접 분석
-시간: 5초
-
-Claude에게:
-"이 GHX 파일 빠르게 분석해줘: C:\project\facade.ghx"
+Grasshopper → run export_to_json.py → JSON → Claude analysis
 ```
 
-### 시나리오 2: 철저한 코드 리뷰 🔍
-```
-상황: PR 전 완벽한 검사 필요
-방법: JSON 내보내기 → 분석
-시간: 30초
+**Advantages:**
+- ✅ **100% accurate**: Direct use of Grasshopper API
+- ✅ **Complete information**: All data including wires, data trees, slider values
+- ✅ **Detailed analysis**: Complex lint rules, data flow analysis
 
-1. GH에서 export_to_json.py 실행
-2. Claude에게: "이 JSON 파일 완전히 분석해줘"
-```
+**Disadvantages:**
+- ⚠️ **One extra step**: Must run GHPython script
+- ⚠️ **Requires GH running**: Grasshopper must be open
 
-### 시나리오 3: 성능 최적화 🚀
-```
-상황: 느린 정의를 빠르게 만들어야 함
-방법: JSON 내보내기 (와이어/데이터트리 정보 필요)
-
-Claude에게:
-"이 정의를 성능 최적화해줘: C:\project\slow.json
-목표: 계산 시간 50% 단축"
-```
-
-### 시나리오 4: 버전 비교 📊
-```
-상황: 어제 버전과 오늘 버전 비교
-방법: GHX 직접 (빠르고 충분)
-
-Claude에게:
-"두 버전 비교해줘:
-이전: C:\project\v1.ghx
-최신: C:\project\v2.ghx"
-```
+**Recommended for:**
+- Detailed analysis needed
+- Performance optimization
+- Refactoring planning
+- Accurate lint checking
 
 ---
 
-## 💡 실전 워크플로우 추천
+## 🎯 Recommendations by Scenario
 
-### 일상 작업 (빠른 사이클)
+### Scenario 1: Quick Check ⚡
 ```
-1. 작업 중: 그냥 GHX로 저장 (dual_save 사용)
-2. 퇴근 전: Claude에게 GHX 파일 직접 분석 요청
-3. 이슈 발견 → 다음날 수정
-```
+Situation: File saved, just want to check for issues
+Method: Direct GHX analysis
+Time: 5 seconds
 
-### 주간 리뷰 (균형)
-```
-월요일: GHX 직접 비교 (지난 주 vs 이번 주)
-수요일: JSON 상세 분석 (중요 파일만)
-금요일: GHX 빠른 체크 (전체 파일)
+Ask Claude:
+"Quickly analyze this GHX file: C:\project\facade.ghx"
 ```
 
-### 중요 프로젝트 (품질 우선)
+### Scenario 2: Thorough Code Review 🔍
 ```
-개발 중: GHX 빠른 체크
-코드 리뷰: JSON 상세 분석
-배포 전: JSON 완전 검사
+Situation: Need perfect inspection before PR
+Method: JSON export → analysis
+Time: 30 seconds
+
+1. Run export_to_json.py in GH
+2. Ask Claude: "Fully analyze this JSON file"
+```
+
+### Scenario 3: Performance Optimization 🚀
+```
+Situation: Need to speed up slow definition
+Method: JSON export (requires wire/data tree info)
+
+Ask Claude:
+"Optimize this definition: C:\project\slow.json
+Goal: Reduce computation time by 50%"
+```
+
+### Scenario 4: Version Comparison 📊
+```
+Situation: Compare yesterday's and today's versions
+Method: Direct GHX (fast and sufficient)
+
+Ask Claude:
+"Compare these two versions:
+Previous: C:\project\v1.ghx
+Latest: C:\project\v2.ghx"
 ```
 
 ---
 
-## 🚀 Claude 사용법
+## 💡 Recommended Workflow
 
-### 자동 감지 (추천!)
+### Daily Work (Fast Cycle)
 ```
-Claude에게 그냥 파일 경로만 주면 자동으로 감지:
-
-"이 파일 분석해줘: C:\project\facade.ghx"
-→ 자동으로 GHX 파서 사용
-
-"이 파일 분석해줘: C:\project\facade.json"
-→ 자동으로 JSON 분석기 사용
+1. While working: Just save as GHX (use dual_save)
+2. Before leaving: Ask Claude to analyze GHX directly
+3. Issues found → Fix next day
 ```
 
-### 명시적 지정
+### Weekly Review (Balanced)
 ```
-"이 GHX 파일을 가능한 한 상세하게 분석해줘"
-→ GHX 파서 + 최대한 상세 분석
+Monday: GHX comparison (last week vs this week)
+Wednesday: JSON detailed analysis (important files only)
+Friday: GHX quick check (all files)
+```
 
-"이 JSON 파일을 빠르게 요약해줘"
-→ JSON 분석 + 요약만
+### Critical Project (Quality First)
+```
+During development: GHX quick checks
+Code review: JSON detailed analysis
+Before deployment: JSON complete inspection
 ```
 
 ---
 
-## 📊 기능 비교표
+## 🚀 Using with Claude
 
-| 기능 | GHX 직접 | JSON 내보내기 |
-|------|----------|---------------|
-| **설정 시간** | 0초 | 10초 |
-| **분석 정확도** | 85% | 100% |
-| **와이어 정보** | 제한적 | 완벽 |
-| **데이터 트리** | 없음 | 완벽 |
-| **슬라이더 값** | 있음 | 완벽 |
-| **컴포넌트 정보** | 기본 | 상세 |
-| **그룹 정보** | 부분 | 완벽 |
-| **Lint 검사** | 기본 11개 | 전체 15개 |
-| **추천 용도** | 일상 체크 | 상세 분석 |
-
----
-
-## 🎓 어느 것을 사용할까?
-
-### GHX 직접 분석을 사용하세요:
-- ✅ 빠르게 확인하고 싶을 때
-- ✅ 기본적인 이슈만 찾으면 될 때
-- ✅ 여러 파일을 한번에 체크할 때
-- ✅ Grasshopper가 안 열려있을 때
-- ✅ 버전 비교만 할 때
-
-### JSON 내보내기를 사용하세요:
-- ✅ 정확한 분석이 필요할 때
-- ✅ 성능 최적화를 할 때
-- ✅ 복잡한 데이터 플로우 분석
-- ✅ 리팩토링 계획 수립
-- ✅ PR 전 완벽한 검사
-
----
-
-## 🔄 실제 사용 예시
-
-### 예시 1: 평범한 하루
+### Auto-detection (Recommended!)
 ```
-09:00 - 작업 시작
-12:00 - 점심 전 저장 (GHX)
-       → Claude: "빠르게 체크해줘: morning_work.ghx"
-       → 큰 이슈 없음 확인
+Just give Claude the file path - it detects automatically:
 
-15:00 - 중간 체크포인트
-       → GHX 저장
-       → Claude: 간단 분석
+"Analyze this file: C:\project\facade.ghx"
+→ Automatically uses GHX parser
+
+"Analyze this file: C:\project\facade.json"
+→ Automatically uses JSON analyzer
+```
+
+### Explicit Specification
+```
+"Analyze this GHX file in as much detail as possible"
+→ GHX parser + maximum detail
+
+"Quickly summarize this JSON file"
+→ JSON analysis + summary only
+```
+
+---
+
+## 📊 Feature Comparison Table
+
+| Feature | Direct GHX | JSON Export |
+|---------|------------|-------------|
+| **Setup Time** | 0 sec | 10 sec |
+| **Analysis Accuracy** | 85% | 100% |
+| **Wire Information** | Limited | Complete |
+| **Data Trees** | None | Complete |
+| **Slider Values** | Basic | Complete |
+| **Component Info** | Basic | Detailed |
+| **Group Information** | Partial | Complete |
+| **Lint Checks** | Basic 11 | All 15 |
+| **Recommended Use** | Daily checks | Detailed analysis |
+
+---
+
+## 🎓 Which Should You Use?
+
+### Use Direct GHX Analysis when:
+- ✅ You want a quick check
+- ✅ Only need to find basic issues
+- ✅ Checking multiple files at once
+- ✅ Grasshopper isn't open
+- ✅ Just comparing versions
+
+### Use JSON Export when:
+- ✅ Accurate analysis is required
+- ✅ Optimizing performance
+- ✅ Analyzing complex data flows
+- ✅ Planning refactoring
+- ✅ Perfect inspection before PR
+
+---
+
+## 🔄 Real Usage Examples
+
+### Example 1: Regular Day
+```
+09:00 - Start work
+12:00 - Save before lunch (GHX)
+       → Claude: "Quick check: morning_work.ghx"
+       → Confirm no major issues
+
+15:00 - Mid checkpoint
+       → Save GHX
+       → Claude: Brief analysis
        
-18:00 - 퇴근 전
-       → export_to_json.py 실행
-       → Claude: "상세 분석 + 내일 할 일"
+18:00 - Before leaving
+       → Run export_to_json.py
+       → Claude: "Detailed analysis + tomorrow's tasks"
 ```
 
-### 예시 2: 중요한 PR
+### Example 2: Important PR
 ```
-작업 완료 후:
-1. dual_save로 GH + GHX 저장
-2. export_to_json.py로 JSON 생성
-3. Claude에게 JSON 파일로 완전 분석 요청
-4. 모든 lint 통과 확인
-5. PR 제출
+After completing work:
+1. Save with dual_save (GH + GHX)
+2. Generate JSON with export_to_json.py
+3. Ask Claude for complete analysis with JSON
+4. Confirm all lint passes
+5. Submit PR
 ```
 
-### 예시 3: 빠른 리뷰
+### Example 3: Quick Review
 ```
-동료가 GHX 파일 공유:
-1. 파일 받음
-2. Claude: "이 파일 리뷰해줘: colleague.ghx"
-3. 즉시 피드백
-4. (필요시) JSON으로 상세 분석
+Colleague shares GHX file:
+1. Receive file
+2. Claude: "Review this file: colleague.ghx"
+3. Immediate feedback
+4. (If needed) Detailed analysis with JSON
 ```
 
 ---
 
-## 🛠️ 설정 방법
+## 🛠️ Setup
 
-### 1. 패키지 설치
+### 1. Install Packages
 ```bash
 pip install -r src/gh/requirements.txt
 ```
 
-### 2. 서버 시작
+### 2. Start Server
 ```bash
 python src/gh/start_server.py
 ```
 
-### 3. Claude Desktop 설정
-MCP 서버는 자동으로 두 포맷 모두 지원합니다!
+### 3. Configure Claude Desktop
+The MCP server automatically supports both formats!
 
 ```json
 "gh_analyzer": {
@@ -243,44 +243,44 @@ MCP 서버는 자동으로 두 포맷 모두 지원합니다!
 
 ---
 
-## 📝 요약
+## 📝 Summary
 
-### 당신의 경우 (GHX로 저장)
+### For Your Case (Saving as GHX)
 
-**90% 경우: GHX 직접 분석**
-- 저장만 하면 끝
-- 빠르고 간편
-- 대부분의 이슈 포착
+**90% of cases: Direct GHX analysis**
+- Just save and done
+- Fast and convenient
+- Catches most issues
 
-**10% 경우: JSON 내보내기**
-- 중요한 분석
-- 성능 최적화
-- 정확한 lint 필요
+**10% of cases: JSON export**
+- Important analysis
+- Performance optimization
+- Accurate lint needed
 
-**베스트 프랙티스:**
+**Best Practice:**
 ```
-일상: GHX 직접
-주간: JSON 상세 (금요일)
-배포: JSON 완전 검사
+Daily: Direct GHX
+Weekly: JSON detail (Friday)
+Deployment: JSON complete check
 ```
 
 ---
 
-## 🎉 결론
+## 🎉 Conclusion
 
-**양쪽의 장점을 모두 활용하세요!**
+**Leverage the advantages of both!**
 
-- 빠른 체크 = GHX
-- 상세 분석 = JSON
-- 자동 감지 = Claude가 알아서!
+- Quick check = GHX
+- Detailed analysis = JSON
+- Auto-detect = Claude handles it!
 
-이제 어떤 상황에서도 최적의 분석을 할 수 있습니다! 🚀
+Now you can get optimal analysis in any situation! 🚀
 
 ---
 
-## 📚 더 알아보기
+## 📚 Learn More
 
-- `README.md` - 전체 가이드
-- `CLAUDE_SETUP.md` - 설정 방법
-- `PROMPTS.md` - 프롬프트 예시
-- `COMPLETE.md` - 완성 요약
+- `README.md` - Complete guide
+- `CLAUDE_SETUP.md` - Setup instructions
+- `PROMPTS.md` - Prompt examples
+- `COMPLETE.md` - Summary
