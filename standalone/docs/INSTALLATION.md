@@ -350,5 +350,5 @@ Now you're ready to analyze Grasshopper definitions!
 **Happy Analyzing! 🚀**
 
 Version: 0.1.0-alpha
-Last Updated: 2025-01-06
+Last Updated: 2025-10-08
 Contact: GitHub Issues

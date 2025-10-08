@@ -372,7 +372,7 @@ Step 4: Enjoy! 🦗
 ```
 Version: 0.1.0-alpha
 Status: Alpha Release
-Release Date: 2025-01-06
+Release Date: 2025-10-08
 Author: Dongwoo Suk @ Steinberg Hart
 
 Built with ❤️ for the Grasshopper community
@@ -382,7 +382,7 @@ Built with ❤️ for the Grasshopper community
 
 ## 📝 Changelog
 
-### v1.0.0 - 2025-01-06 🎉
+### v1.0.0 - 2025-10-08 🎉
 ```
 🆕 Initial Release
 

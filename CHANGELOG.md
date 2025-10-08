@@ -5,7 +5,7 @@ All notable changes to the Grasshopper Quality Analyzer project will be document
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.1.0-alpha] - 2025-01-06 - Alpha Release 🎉
+## [0.1.0-alpha] - 2025-10-08 - Alpha Release 🎉
 
 ### 🎊 First Public Alpha Release
 
@@ -98,7 +98,7 @@ This is the initial alpha release for public testing and feedback collection.
 - Better error handling
 - User feedback integration
 
-### [0.1.0-alpha] - 2025-01-06 - Alpha Release 🎉 - Planned
+### [0.1.0-alpha] - 2025-10-08 - Alpha Release 🎉 - Planned
 - Stable release
 - Complete test coverage
 - Full documentation
@@ -163,6 +163,6 @@ Your feedback helps make this tool better for everyone.
 
 ---
 
-Last Updated: 2025-01-06
+Last Updated: 2025-10-08
 Current Version: 0.1.0-alpha
 Status: Alpha Testing
