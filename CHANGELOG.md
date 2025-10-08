@@ -19,7 +19,7 @@ This is the initial alpha release for public testing and feedback collection.
 
 ### Added
 - ✅ **Standalone Components** - 5 ready-to-use Python components
-  - All-in-One (v4.0 with universal path detection)
+  - All-in-One (with universal path detection)
   - Health Check
   - Issue Finder
   - Auto-Fix

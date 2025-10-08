@@ -3,6 +3,7 @@ Quick Test Script - GH Live Analyzer
 Copy this into a Grasshopper Python component to test basic functionality
 
 Inputs:
+- path: String - Path to standalone folder
 - x: Button (press to test)
 
 Outputs:
@@ -12,7 +13,7 @@ Outputs:
 import sys
 
 # IMPORTANT: Change this path to your actual standalone folder location
-gh_path = r"C:\Users\Soku\OneDrive - Steinberg Hart\Desktop\Source\RhinoScripts\src\gh\standalone"
+gh_path = str(path).strip()
 
 if gh_path not in sys.path:
     sys.path.insert(0, gh_path)
@@ -70,7 +71,7 @@ Problem: {str(e)}
 
 Fix:
 1. Check the path in the script:
-   gh_path = r"YOUR_ACTUAL_PATH"
+   gh_path = str(path).strip()
 
 2. Make sure gh_live_analyzer.py exists at that location
 
