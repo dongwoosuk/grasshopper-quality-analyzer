@@ -19,11 +19,18 @@ def find_gh_analyzer():
     username = os.environ.get('USERNAME', '')
     
     common_paths = [
+        # Support both gh_analyzer and gh_analyzer_release folder names
+        rf"C:\Users\{username}\OneDrive - Steinberg Hart\Desktop\Source\RhinoScripts\src\gh\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\OneDrive - Steinberg Hart\Desktop\Source\RhinoScripts\src\gh\gh_analyzer\standalone",
+        rf"C:\Users\{username}\Desktop\Source\RhinoScripts\src\gh\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\Desktop\Source\RhinoScripts\src\gh\gh_analyzer\standalone",
+        rf"C:\Users\{username}\Source\RhinoScripts\src\gh\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\Source\RhinoScripts\src\gh\gh_analyzer\standalone",
+        rf"C:\Users\{username}\OneDrive\Desktop\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\OneDrive\Desktop\gh_analyzer\standalone",
+        rf"C:\Users\{username}\Desktop\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\Desktop\gh_analyzer\standalone",
+        rf"C:\Users\{username}\Documents\gh_analyzer_release\standalone",
         rf"C:\Users\{username}\Documents\gh_analyzer\standalone",
         r"C:\GH_Analyzer\standalone",
         r"C:\gh_analyzer\standalone",
@@ -35,10 +42,14 @@ def find_gh_analyzer():
     
     try:
         import glob
-        pattern = rf"C:\Users\{username}\OneDrive - *\Desktop\Source\RhinoScripts\src\gh\gh_analyzer\standalone"
-        for match in glob.glob(pattern):
-            if os.path.exists(os.path.join(match, "gh_live_analyzer.py")):
-                return match
+        patterns = [
+            rf"C:\Users\{username}\OneDrive - *\Desktop\Source\RhinoScripts\src\gh\gh_analyzer_release\standalone",
+            rf"C:\Users\{username}\OneDrive - *\Desktop\Source\RhinoScripts\src\gh\gh_analyzer\standalone"
+        ]
+        for pattern in patterns:
+            for match in glob.glob(pattern):
+                if os.path.exists(os.path.join(match, "gh_live_analyzer.py")):
+                    return match
     except:
         pass
     

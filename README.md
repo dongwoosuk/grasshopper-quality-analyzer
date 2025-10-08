@@ -136,7 +136,7 @@ python mcp_server.py
 
 ## 🌟 Case Study
 
-**Steinberg Hart Pilot Project**
+**Architecture Firm Pilot Project**
 
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
@@ -216,7 +216,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Grasshopper Community** - For making computational design accessible
-- **Steinberg Hart Team** - For supporting this project and pilot testing
+- **Pilot Testing Team** - For supporting this project and providing valuable feedback
 - **Claude (Anthropic)** - For AI-powered analysis capabilities
 - **All Beta Testers** - For valuable feedback and bug reports
 
@@ -225,11 +225,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👤 Author
 
 **Dongwoo Suk**  
-Computational Designer @ Steinberg Hart
+Computational Designer
 
 - 🌐 GitHub: [@dongwoosuk](https://github.com/dongwoosuk)
 - 💼 LinkedIn: [dongwoosuk](https://linkedin.com/in/dongwoosuk)
-- 📧 Email: contact@example.com
+- 📧 Email: dongwoosuk0219@gmail.com
 
 ---
 
@@ -257,7 +257,7 @@ Bring software engineering tools to computational design. Automated quality chec
 - 📝 ~2,000 lines of documentation
 - ✅ 15+ quality checks
 - 🎨 2 versions (Standalone + MCP)
-- 🏢 1 pilot firm (Steinberg Hart)
+- 🏢 Pilot tested at architecture firm
 - 👥 Growing community
 
 ---

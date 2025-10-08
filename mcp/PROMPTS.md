@@ -1,25 +1,25 @@
-# Grasshopper 분석 프롬프트 템플릿
+# Grasshopper Analysis Prompt Templates
 
-Claude와 함께 Grasshopper 정의를 분석할 때 사용할 수 있는 프롬프트 템플릿입니다.
+Prompt templates for analyzing Grasshopper definitions with Claude.
 
 ---
 
-## 📊 기본 분석
+## 📊 Basic Analysis
 
 ```
-You are a Grasshopper definition expert. I have a GH definition exported to JSON.
+You are a Grasshopper definition expert. I have a GH definition.
 
 Please analyze this file and provide:
 1. Overview: component count, categories used, complexity metrics
 2. Health check: any obvious issues or warnings
 3. Quick recommendations for improvement
 
-File path: [PATH_TO_JSON]
+File path: [PATH_TO_FILE]
 ```
 
 ---
 
-## 🔍 상세 Lint 검사
+## 🔍 Detailed Lint Check
 
 ```
 You are a Grasshopper code reviewer. Run a comprehensive lint check on my GH definition.
@@ -33,19 +33,19 @@ Tasks:
    - Affected components (with GUIDs)
 3. Provide a priority-ordered action plan
 
-File path: [PATH_TO_JSON]
+File path: [PATH_TO_FILE]
 ```
 
 ---
 
-## 🎯 목표 기반 개선
+## 🎯 Goal-Based Improvements
 
-### 성능 최적화
+### Performance Optimization
 
 ```
 I need to optimize my Grasshopper definition for better performance.
 
-Current file: [PATH_TO_JSON]
+Current file: [PATH_TO_FILE]
 Goal: Reduce computation time by at least 50%
 
 Please:
@@ -55,12 +55,12 @@ Please:
 4. Estimate potential performance gain for each suggestion
 ```
 
-### 가독성 향상
+### Readability Improvement
 
 ```
 Help me make this Grasshopper definition more maintainable and readable.
 
-Current file: [PATH_TO_JSON]
+Current file: [PATH_TO_FILE]
 Goal: Team members should understand the logic without explanation
 
 Please suggest:
@@ -70,12 +70,12 @@ Please suggest:
 4. Data flow simplification
 ```
 
-### 데이터 트리 안정화
+### Data Tree Stabilization
 
 ```
 My definition has unpredictable data tree behavior.
 
-Current file: [PATH_TO_JSON]
+Current file: [PATH_TO_FILE]
 Goal: Stable and predictable data tree structure
 
 Analyze:
@@ -87,7 +87,7 @@ Analyze:
 
 ---
 
-## 🔄 버전 비교
+## 🔄 Version Comparison
 
 ```
 Compare two versions of my Grasshopper definition.
@@ -104,12 +104,12 @@ Please provide:
 
 ---
 
-## 🏗️ 리팩토링 계획
+## 🏗️ Refactoring Plan
 
 ```
 Create a refactoring plan for my Grasshopper definition.
 
-Current file: [PATH_TO_JSON]
+Current file: [PATH_TO_FILE]
 Goals:
 - [GOAL_1]
 - [GOAL_2]
@@ -125,12 +125,12 @@ Please provide:
 
 ---
 
-## 🎓 교육용 분석
+## 🎓 Educational Analysis
 
 ```
 Explain this Grasshopper definition to a beginner.
 
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 
 Please:
 1. Describe the overall purpose and logic
@@ -142,12 +142,12 @@ Please:
 
 ---
 
-## 📦 클러스터링 제안
+## 📦 Clustering Suggestions
 
 ```
 Identify opportunities to create clusters in my definition.
 
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 
 Find:
 1. Repeated component sequences (potential clusters)
@@ -161,12 +161,12 @@ Find:
 
 ---
 
-## 🔌 플러그인 의존성 분석
+## 🔌 Plugin Dependency Analysis
 
 ```
 Analyze plugin dependencies in my definition.
 
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 
 Report:
 1. List all non-core plugins used
@@ -180,12 +180,12 @@ Report:
 
 ---
 
-## 💡 Best Practice 체크
+## 💡 Best Practice Check
 
 ```
 Review my definition against Grasshopper best practices.
 
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 
 Check for:
 1. ✅ Naming conventions
@@ -200,12 +200,12 @@ Rate each category (1-5) and provide specific improvements.
 
 ---
 
-## 🎨 캔버스 레이아웃 분석
+## 🎨 Canvas Layout Analysis
 
 ```
 Analyze the visual layout and organization of my definition.
 
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 
 Assess:
 1. Wire crossing issues (long wires, tangled connections)
@@ -217,39 +217,39 @@ Assess:
 
 ---
 
-## 사용 예시
+## Usage Examples
 
-### 실제 대화 흐름
+### Real Conversation Flow
 
 ```
-User: 내 Grasshopper 파일을 분석해줘
+User: Please analyze my Grasshopper file
 File: C:\Projects\building_facade.json
-목표는 성능 최적화야
+Goal: Performance optimization
 
 Claude: 
-[gh.parse 실행]
-[gh.lint 실행]
-[gh.suggest 실행 with goal="optimize performance"]
+[Runs gh_parse]
+[Runs gh_lint]
+[Runs gh_suggest with goal="optimize performance"]
 
-분석 결과를 보니 주요 병목이 3곳 있습니다:
+Analysis shows 3 major bottlenecks:
 
-1. [Component A] - 데이터 트리 flatten 남용
-   → 제안: Graft 대신 Partition List 사용
+1. [Component A] - Data tree flatten overuse
+   → Suggestion: Use Graft instead of Partition List
    
-2. [Component B] - 중복 계산
-   → 제안: Cluster로 분리 + Data Dam
+2. [Component B] - Duplicate calculations
+   → Suggestion: Extract to Cluster + Data Dam
 
-3. [Component C] - 비효율적인 지오메트리 생성
-   → 제안: native 컴포넌트로 대체
+3. [Component C] - Inefficient geometry creation
+   → Suggestion: Replace with native components
 
-구체적인 수정 방법을 단계별로 설명해드릴까요?
+Would you like me to explain the step-by-step fixes?
 ```
 
 ---
 
-## 템플릿 커스터마이징
+## Template Customization
 
-자신만의 팀 규칙을 추가하려면:
+To add your own team rules:
 
 ```
 Based on our team standards:
@@ -259,5 +259,32 @@ Based on our team standards:
 - Required: version scribble in top-left
 
 Check my definition against these rules.
-File: [PATH_TO_JSON]
+File: [PATH_TO_FILE]
 ```
+
+---
+
+## Quick Reference
+
+### Analysis Types
+- **Quick**: Basic overview and health check
+- **Standard**: Full lint + suggestions
+- **Deep**: Complete analysis with refactoring plan
+- **Comparison**: Version diff analysis
+
+### Common Goals
+- Performance optimization
+- Readability improvement
+- Data tree stabilization
+- Plugin dependency reduction
+- Layout reorganization
+
+### Response Formats
+- Summary (bullet points)
+- Detailed (step-by-step)
+- Technical (with GUIDs and metrics)
+- Educational (beginner-friendly)
+
+---
+
+[← Back to MCP Guide](README.md)

@@ -1,154 +1,185 @@
-# Claude Desktop 연동 가이드
+# Claude Desktop Integration Guide
 
-## Claude Desktop MCP 설정
+## MCP Server Setup
 
-### 1단계: MCP 서버 시작
+### Step 1: Start MCP Server
 
 ```bash
-# 필수 패키지 설치
-pip install -r src/gh/requirements.txt
+# Install required packages
+pip install -r requirements.txt
 
-# 서버 시작
-python src/gh/start_server.py
+# Start server
+python mcp_server.py
 ```
 
-서버가 `http://127.0.0.1:5071`에서 실행됩니다.
+Server will run on `http://127.0.0.1:5071`.
 
-### 2단계: Claude Desktop 설정
+### Step 2: Configure Claude Desktop
 
-Claude Desktop 설정 파일 위치:
-- Windows: `%APPDATA%\Claude\claude_desktop_config.json`
-- Mac: `~/Library/Application Support/Claude/claude_desktop_config.json`
+Claude Desktop configuration file location:
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+- **Mac**: `~/Library/Application Support/Claude/claude_desktop_config.json`
 
-설정 파일에 다음 추가:
+Add to configuration file:
 
 ```json
 {
   "mcpServers": {
-    "grasshopper": {
-      "command": "C:\\Users\\Soku\\OneDrive - Steinberg Hart\\Desktop\\Source\\Grasshopper-mcp\\.venv\\Scripts\\python.exe",
-      "args": ["-m", "grasshopper_mcp.bridge"]
-    },
-    "filesystem": {
-      "command": "node",
-      "args": [
-        "C:\\Users\\Soku\\AppData\\Roaming\\npm\\node_modules\\@modelcontextprotocol\\server-filesystem\\dist\\index.js",
-        "C:\\Users\\Soku\\Downloads",
-        "C:\\Users\\Soku\\Documents"
-      ]
-    },
-    "rhino_scripts": {
-      "command": "python",
-      "args": [
-        "C:\\Users\\Soku\\OneDrive - Steinberg Hart\\Desktop\\Source\\RhinoScripts\\vscode_mcp_server.py"
-      ],
-      "env": {
-        "PYTHONPATH": "C:\\Users\\Soku\\OneDrive - Steinberg Hart\\Desktop\\Source\\RhinoScripts"
-      }
-    },
     "gh_analyzer": {
       "command": "python",
-      "args": [
-        "C:\\Users\\Soku\\OneDrive - Steinberg Hart\\Desktop\\Source\\RhinoScripts\\src\\gh\\mcp_server.py"
-      ],
+      "args": ["/path/to/mcp_server.py"],
       "env": {
-        "PYTHONPATH": "C:\\Users\\Soku\\OneDrive - Steinberg Hart\\Desktop\\Source\\RhinoScripts"
+        "PYTHONPATH": "/path/to/project"
       }
     }
   }
 }
 ```
 
-### 3단계: Claude Desktop 재시작
+### Step 3: Restart Claude Desktop
 
-설정 파일을 저장한 후 Claude Desktop을 완전히 종료하고 다시 시작하세요.
-
----
-
-## 사용 가능한 도구
-
-### 1. gh.parse(path)
-정의 파일 분석 및 요약
-
-**입력:**
-```
-path: JSON 파일 경로
-```
-
-**출력:**
-- 문서 정보
-- 컴포넌트/파라미터/와이어 통계
-- 카테고리별 분포
-- 분석 리포트
-
-### 2. gh.lint(path, rules?)
-Lint 검사 실행
-
-**입력:**
-```
-path: JSON 파일 경로
-rules: (선택) 체크할 규칙 ID 리스트 (예: ["GH001", "GH003"])
-```
-
-**출력:**
-- 발견된 이슈 목록
-- 심각도별 요약
-- 수정 제안
-
-### 3. gh.suggest(path, goal)
-목표 기반 개선 제안
-
-**입력:**
-```
-path: JSON 파일 경로
-goal: 목표 설명 (예: "optimize performance", "improve readability")
-```
-
-**출력:**
-- 우선순위별 제안
-- 구체적인 수정 단계
-- 컴포넌트 레벨 가이드
-
-### 4. gh.diff(path_a, path_b)
-두 버전 비교
-
-**입력:**
-```
-path_a: 첫 번째 JSON 파일
-path_b: 두 번째 JSON 파일
-```
-
-**출력:**
-- 추가/삭제/변경된 컴포넌트
-- 와이어 변경사항
-- 변경 요약
+Save the configuration file and completely restart Claude Desktop.
 
 ---
 
-## 테스트
+## Available Tools
 
-### API 직접 테스트
+### 1. gh_parse(path)
+Analyze and summarize definition files
+
+**Input:**
+```
+path: Path to GHX or JSON file
+```
+
+**Output:**
+- Document information
+- Component/parameter/wire statistics
+- Category distribution
+- Analysis report
+
+### 2. gh_lint(path, rules?)
+Run lint checks
+
+**Input:**
+```
+path: Path to GHX or JSON file
+rules: (Optional) List of rule IDs to check (e.g., ["GH001", "GH003"])
+```
+
+**Output:**
+- List of found issues
+- Summary by severity
+- Fix suggestions
+
+### 3. gh_suggest(path, goal)
+Goal-based improvement suggestions
+
+**Input:**
+```
+path: Path to file
+goal: Goal description (e.g., "optimize performance", "improve readability")
+```
+
+**Output:**
+- Prioritized suggestions
+- Concrete fix steps
+- Component-level guidance
+
+### 4. gh_diff(path_a, path_b)
+Compare two versions
+
+**Input:**
+```
+path_a: First file path
+path_b: Second file path
+```
+
+**Output:**
+- Added/removed/modified components
+- Wire changes
+- Change summary
+
+### 5. gh_list_rules()
+List all available lint rules
+
+**Output:**
+- Complete list of 15+ lint rules
+- Rule IDs, severities, descriptions
+
+---
+
+## Testing
+
+### Direct API Test
 
 ```bash
-# 서버 상태 확인
+# Check server status
 curl http://127.0.0.1:5071/
 
-# 규칙 목록 확인
+# List rules
 curl http://127.0.0.1:5071/gh/rules
 
-# 분석 (POST)
+# Analyze (POST)
 curl -X POST http://127.0.0.1:5071/gh/parse \
   -H "Content-Type: application/json" \
   -d '{"path": "C:/temp/my_definition.json"}'
 ```
 
-### Claude Desktop에서 테스트
+### Test in Claude Desktop
 
-Claude에게 다음과 같이 물어보세요:
+Ask Claude:
 
 ```
-내 Grasshopper 정의 파일을 분석해줘:
+Please analyze my Grasshopper definition file:
 C:\temp\my_definition.json
 ```
 
-Claude가 자동으로 적절한 MCP 도구를 사용합니다.
+Claude will automatically use the appropriate MCP tool.
+
+---
+
+## Usage Examples
+
+### Quick Analysis
+```
+"Analyze this file: C:\project\facade.ghx"
+```
+
+### Detailed Lint Check
+```
+"Run lint check on: C:\project\definition.json
+Focus on performance and data tree issues"
+```
+
+### Version Comparison
+```
+"Compare these two versions:
+Before: C:\project\v1.ghx
+After: C:\project\v2.ghx"
+```
+
+### Optimization Suggestions
+```
+"Suggest performance improvements for: C:\project\slow.json
+Goal: Reduce computation time by 50%"
+```
+
+---
+
+## Troubleshooting
+
+### Server won't start
+- Check Python version (3.8+)
+- Install dependencies: `pip install -r requirements.txt`
+- Check port 5071 is not in use
+
+### Claude can't find tools
+- Verify configuration file path
+- Restart Claude Desktop completely
+- Check server is running
+
+### Analysis fails
+- Verify file path is correct
+- Check file format (GHX or JSON)
+- Review server logs for errors

@@ -83,16 +83,14 @@ def find_gh_analyzer_universal():
             continue
         
         # Try direct path first
-        for folder_name in ["gh_analyzer_release", "gh_analyzer"]:
-            direct_path = root / folder_name / "standalone"
-            if (direct_path / "gh_live_analyzer.py").exists():
-                return direct_path
+        direct_path = root / "gh_analyzer" / "standalone"
+        if (direct_path / "gh_live_analyzer.py").exists():
+            return direct_path
         
         # Try Source/RhinoScripts structure
-        for folder_name in ["gh_analyzer_release", "gh_analyzer"]:
-            source_path = root / "Source" / "RhinoScripts" / "src" / "gh" / folder_name / "standalone"
-            if (source_path / "gh_live_analyzer.py").exists():
-                return source_path
+        source_path = root / "Source" / "RhinoScripts" / "src" / "gh" / "gh_analyzer" / "standalone"
+        if (source_path / "gh_live_analyzer.py").exists():
+            return source_path
         
         # Try recursive search (up to 3 levels deep)
         try:

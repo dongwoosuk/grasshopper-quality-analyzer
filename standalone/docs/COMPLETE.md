@@ -370,8 +370,8 @@ Step 4: Enjoy! 🦗
 **Happy Grasshoppering! 🎊**
 
 ```
-Version: 1.0.0
-Status: ✅ Complete & Ready
+Version: 0.1.0-alpha
+Status: Alpha Release
 Release Date: 2025-01-06
 Author: Dongwoo Suk @ Steinberg Hart
 
