@@ -37,5 +37,37 @@ else:
     
     try:
         from gh_live_analyzer import GHLiveAnalyzer
+        
+        analyzer = GHLiveAnalyzer()
+        analyzer.scan_document()
+        
+        # Auto-fix unnamed parameters
+        fixed = analyzer.auto_name_parameters()
+        
+        if fixed > 0:
+            report = f"""
+==================================================
+AUTO-FIX COMPLETE
+==================================================
 
-from gh_live_analyzer import GHLiveAnalyzer
+✅ Fixed {fixed} unnamed parameters
+
+All unnamed sliders and panels now have descriptive names.
+
+==================================================
+"""
+        else:
+            report = """
+==================================================
+AUTO-FIX COMPLETE
+==================================================
+
+ℹ️  No fixes needed - all parameters already named!
+
+==================================================
+"""
+        
+        a = report
+            
+    except Exception as e:
+        a = f"❌ ERROR: {str(e)}\n\nPlease check that gh_live_analyzer.py exists in the path folder."

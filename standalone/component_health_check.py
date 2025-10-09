@@ -1,7 +1,7 @@
 """
 Grasshopper Health Check Component - v3.0 (Auto Path + Auto Run)
 
-No inputs needed - runs automatically!
+Quick health check with score
 
 Outputs:
 - a: Analysis report
@@ -37,5 +37,50 @@ else:
     
     try:
         from gh_live_analyzer import GHLiveAnalyzer
+        
+        analyzer = GHLiveAnalyzer()
+        analyzer.scan_document()
+        analyzer.run_all_checks()
+        
+        score = analyzer.calculate_health_score()
+        stats = analyzer.get_statistics()
+        issues = analyzer.issues
+        
+        # Count by severity
+        errors = len([i for i in issues if i['severity'] == 'error'])
+        warnings = len([i for i in issues if i['severity'] == 'warning'])
+        info_count = len([i for i in issues if i['severity'] == 'info'])
+        
+        # Status
+        if score >= 90:
+            status = "✅ Excellent"
+        elif score >= 70:
+            status = "👍 Good"
+        elif score >= 50:
+            status = "⚠️  Needs Attention"
+        else:
+            status = "❌ Critical"
+        
+        report = f"""
+==================================================
+GRASSHOPPER HEALTH CHECK
+==================================================
 
-from gh_live_analyzer import GHLiveAnalyzer
+📊 Score: {score}/100
+Status: {status}
+
+🔧 Components: {stats['total_components']}
+🔗 Connections: {stats['total_wires']}
+📁 Groups: {stats['total_groups']}
+
+Issues:
+  ❌ Errors: {errors}
+  ⚠️  Warnings: {warnings}
+  ℹ️  Info: {info_count}
+
+==================================================
+"""
+        a = report
+            
+    except Exception as e:
+        a = f"❌ ERROR: {str(e)}\n\nPlease check that gh_live_analyzer.py exists in the path folder."

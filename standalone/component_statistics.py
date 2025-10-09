@@ -37,5 +37,33 @@ else:
     
     try:
         from gh_live_analyzer import GHLiveAnalyzer
+        
+        analyzer = GHLiveAnalyzer()
+        analyzer.scan_document()
+        
+        stats = analyzer.get_statistics()
+        
+        report = f"""
+==================================================
+GRASSHOPPER STATISTICS
+==================================================
 
-from gh_live_analyzer import GHLiveAnalyzer
+📊 Document Overview:
+  • Total Components: {stats['total_components']}
+  • Total Parameters: {stats['total_params']}
+  • Total Wires: {stats['total_wires']}
+  • Total Groups: {stats['total_groups']}
+
+📈 By Category:
+"""
+        
+        if 'by_category' in stats:
+            for category, count in sorted(stats['by_category'].items()):
+                report += f"  • {category}: {count}\n"
+        
+        report += "\n==================================================\n"
+        
+        a = report
+            
+    except Exception as e:
+        a = f"❌ ERROR: {str(e)}\n\nPlease check that gh_live_analyzer.py exists in the path folder."

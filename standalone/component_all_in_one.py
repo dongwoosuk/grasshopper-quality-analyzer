@@ -1,9 +1,9 @@
 """
-Grasshopper All-in-One Analyzer - v4.0 (Universal Path Detection)
+Grasshopper All-in-One Analyzer - v3.0 (Auto Path + Auto Run)
 
-🌍 WORKS ANYWHERE - No hardcoded paths!
+Complete analysis with multiple modes
 
-Inputs (ALL OPTIONAL):
+Inputs:
 - mode: Number (0-4) - Analysis mode (default: 0)
   0 = Quick Check
   1 = Full Analysis  
@@ -11,7 +11,6 @@ Inputs (ALL OPTIONAL):
   3 = Find Issues
   4 = Auto-Fix
 - auto_fix: Boolean - Enable automatic fixes (default: False)
-- lib_path: Text - Custom path to gh_live_analyzer.py folder (optional)
 
 Outputs:
 - a: Main report
@@ -47,5 +46,165 @@ else:
     
     try:
         from gh_live_analyzer import GHLiveAnalyzer
+        
+        # Get mode (default 0)
+        analysis_mode = int(mode) if 'mode' in dir() and mode is not None else 0
+        do_auto_fix = auto_fix if 'auto_fix' in dir() and auto_fix else False
+        
+        analyzer = GHLiveAnalyzer()
+        analyzer.scan_document()
+        
+        if analysis_mode == 0:
+            # Quick Check
+            analyzer.run_all_checks()
+            score = analyzer.calculate_health_score()
+            stats = analyzer.get_statistics()
+            issues = analyzer.issues
+            
+            errors = len([i for i in issues if i['severity'] == 'error'])
+            warnings = len([i for i in issues if i['severity'] == 'warning'])
+            
+            if score >= 90:
+                status = "✅ Excellent"
+            elif score >= 70:
+                status = "👍 Good"
+            elif score >= 50:
+                status = "⚠️  Needs Attention"
+            else:
+                status = "❌ Critical"
+            
+            a = f"""
+==================================================
+QUICK CHECK
+==================================================
 
-from gh_live_analyzer import GHLiveAnalyzer
+📊 Score: {score}/100
+Status: {status}
+
+🔧 Components: {stats['total_components']}
+Issues: {errors} errors, {warnings} warnings
+
+==================================================
+"""
+        
+        elif analysis_mode == 1:
+            # Full Analysis
+            analyzer.run_all_checks()
+            score = analyzer.calculate_health_score()
+            stats = analyzer.get_statistics()
+            issues = analyzer.issues
+            
+            errors = [i for i in issues if i['severity'] == 'error']
+            warnings = [i for i in issues if i['severity'] == 'warning']
+            info = [i for i in issues if i['severity'] == 'info']
+            
+            report = f"""
+==================================================
+FULL ANALYSIS
+==================================================
+
+📊 Score: {score}/100
+🔧 Components: {stats['total_components']}
+🔗 Wires: {stats['total_wires']}
+📁 Groups: {stats['total_groups']}
+
+"""
+            if errors:
+                report += "❌ ERRORS:\n"
+                for issue in errors:
+                    report += f"  [{issue['rule_id']}] {issue['title']}\n"
+            
+            if warnings:
+                report += "\n⚠️  WARNINGS:\n"
+                for issue in warnings:
+                    report += f"  [{issue['rule_id']}] {issue['title']}\n"
+            
+            if info:
+                report += f"\nℹ️  INFO: {len(info)} items\n"
+            
+            report += "\n==================================================\n"
+            a = report
+        
+        elif analysis_mode == 2:
+            # Statistics Only
+            stats = analyzer.get_statistics()
+            
+            report = f"""
+==================================================
+STATISTICS
+==================================================
+
+📊 Document Overview:
+  • Components: {stats['total_components']}
+  • Parameters: {stats['total_params']}
+  • Wires: {stats['total_wires']}
+  • Groups: {stats['total_groups']}
+
+==================================================
+"""
+            a = report
+        
+        elif analysis_mode == 3:
+            # Find Issues
+            analyzer.run_all_checks()
+            issues = analyzer.issues
+            
+            if not issues:
+                a = "✅ No issues found!"
+            else:
+                errors = [i for i in issues if i['severity'] == 'error']
+                warnings = [i for i in issues if i['severity'] == 'warning']
+                info = [i for i in issues if i['severity'] == 'info']
+                
+                report = "=== ISSUES FOUND ===\n\n"
+                
+                if errors:
+                    report += "❌ ERRORS:\n"
+                    for issue in errors:
+                        report += f"  [{issue['rule_id']}] {issue['title']}\n"
+                        report += f"  → {issue['message']}\n\n"
+                
+                if warnings:
+                    report += "⚠️  WARNINGS:\n"
+                    for issue in warnings:
+                        report += f"  [{issue['rule_id']}] {issue['title']}\n"
+                        report += f"  → {issue['message']}\n\n"
+                
+                if info:
+                    report += "ℹ️  INFO:\n"
+                    for issue in info:
+                        report += f"  [{issue['rule_id']}] {issue['title']}\n"
+                        report += f"  → {issue['message']}\n\n"
+                
+                report += f"\nTotal: {len(errors)} errors, {len(warnings)} warnings, {len(info)} info"
+                a = report
+        
+        elif analysis_mode == 4:
+            # Auto-Fix
+            fixed = analyzer.auto_name_parameters()
+            
+            if fixed > 0:
+                a = f"""
+==================================================
+AUTO-FIX COMPLETE
+==================================================
+
+✅ Fixed {fixed} unnamed parameters
+
+==================================================
+"""
+            else:
+                a = """
+==================================================
+AUTO-FIX COMPLETE
+==================================================
+
+ℹ️  No fixes needed!
+
+==================================================
+"""
+        else:
+            a = "❌ Invalid mode! Use 0-4"
+            
+    except Exception as e:
+        a = f"❌ ERROR: {str(e)}\n\nPlease check that gh_live_analyzer.py exists in the path folder."

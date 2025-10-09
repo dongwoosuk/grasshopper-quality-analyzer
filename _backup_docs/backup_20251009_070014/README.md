@@ -269,58 +269,16 @@ Bring software engineering tools to computational design. Automated quality chec
 - **Discussions**: [Ask questions](https://github.com/dongwoosuk/grasshopper-quality-analyzer/discussions)
 - **Releases**: [Download](https://github.com/dongwoosuk/grasshopper-quality-analyzer/releases)
 
-
-
 ---
 
-## ?뱴 Documentation
-
-### Getting Started
-- [?? Quick Start Guide](docs/getting-started.md) - Get running in 5 minutes
-- [?벀 Standalone Installation](docs/installation-standalone.md) - For daily use
-- [?뵩 MCP Installation](docs/installation-mcp.md) - For advanced analysis
-
-### User Guides
-- [?뱰 User Guide (English)](docs/user-guide.md) - Complete usage guide
-- [?뱰 ?ъ슜??媛?대뱶 (?쒓?)](docs/user-guide-ko.md) - ?쒓? ?ъ슜 媛?대뱶
-- [??Best Practices](docs/best-practices.md) - Tips and workflows
-
-### Reference
-- [?뱴 API Reference](docs/api-reference.md) - Complete documentation
-- [?뵩 MCP Guide](mcp/README.md) - MCP + Claude integration
-- [?뱚 Examples](examples/README.md) - Example files
-
----
----
 <p align="center">
   <strong>Built with ❤️ for the AEC community</strong>
   <br>
   <sub>Improving computational design, one definition at a time.</sub>
 </p>
 
-
-
 ---
 
-## ?뱴 Documentation
-
-### Getting Started
-- [?? Quick Start Guide](docs/getting-started.md) - Get running in 5 minutes
-- [?벀 Standalone Installation](docs/installation-standalone.md) - For daily use
-- [?뵩 MCP Installation](docs/installation-mcp.md) - For advanced analysis
-
-### User Guides
-- [?뱰 User Guide (English)](docs/user-guide.md) - Complete usage guide
-- [?뱰 ?ъ슜??媛?대뱶 (?쒓?)](docs/user-guide-ko.md) - ?쒓? ?ъ슜 媛?대뱶
-- [??Best Practices](docs/best-practices.md) - Tips and workflows
-
-### Reference
-- [?뱴 API Reference](docs/api-reference.md) - Complete documentation
-- [?뵩 MCP Guide](mcp/README.md) - MCP + Claude integration
-- [?뱚 Examples](examples/README.md) - Example files
-
----
----
 <p align="center">
   <a href="standalone/QUICKSTART.md">Get Started with Standalone</a> •
   <a href="mcp/CLAUDE_SETUP.md">Setup MCP Version</a> •
