@@ -1,348 +1,568 @@
-# 🎯 Grasshopper Live Analyzer - User Guide
+# 🎯 Grasshopper Quality Analyzer - User Guide
 
-## 📦 Complete Package - For General Users
+**Version: 0.3.0-alpha** | **Last Updated: 2025-11-15**
 
-A **complete analysis tool** that works directly inside Grasshopper!
+A complete quality analysis toolkit for Grasshopper definitions with 9 specialized components.
 
 ---
 
 ## 🚀 Quick Start
 
-### Step 1: Installation
-1. Add Python component to canvas
-2. Copy and paste one of the scripts below
-3. Connect inputs/outputs
-4. Done! 🎉
+### Installation
+1. Add a Python component to your Grasshopper canvas
+2. Open the desired `.py` file from the `standalone` folder
+3. Copy the entire script into the Python component
+4. Configure inputs and connect outputs
+5. Done! 🎉
 
-### Step 2: Choose Component
-Select the right component for your needs:
+### Component Selection Guide
 
-| Component | Purpose | Difficulty |
-|-----------|---------|------------|
-| **All-in-One** | All features (Recommended!) | ⭐⭐ |
-| **Health Check** | Quick check | ⭐ |
-| **Issue Finder** | Detailed issue search | ⭐⭐ |
-| **Auto-Fix** | Automatic fixes | ⭐⭐ |
-| **Statistics** | Stats only | ⭐ |
+| Component | Category | Purpose | Difficulty |
+|-----------|----------|---------|------------|
+| **Health Check** | Analysis | Overall quality score | ⭐ Easy |
+| **Issue Finder** | Analysis | Detailed problem detection | ⭐⭐ Medium |
+| **Statistics** | Analysis | Component breakdown | ⭐ Easy |
+| **Performance Profiler** ⚡ | Analysis | Bottleneck detection | ⭐⭐ Medium |
+| **Parameter Namer** | Automation | Batch rename by type | ⭐⭐ Medium |
+| **Auto Alignment** | Automation | Component layout | ⭐⭐⭐ Advanced |
+| **Preview Control** | Automation | Enable/disable previews | ⭐ Easy |
+| **Display Mode** | Automation | Icon/Name/Both | ⭐ Easy |
+| **Python I/O Manager** | Automation | Auto input/output setup | ⭐⭐ Medium |
 
 ---
 
-## 🎨 Component Detailed Guide
+## 📊 Analysis Components (4)
 
-### 1. All-in-One (Recommended ⭐)
+### 1. Health Check
 
-**The most powerful all-in-one tool**
+**Quick quality assessment with actionable feedback**
 
 #### Inputs:
 - `run` (Button): Execute analysis
-- `mode` (Number Slider 0-4): Analysis mode
-  - `0` = Quick Check
-  - `1` = Full Analysis
-  - `2` = Statistics Only
-  - `3` = Find Issues
-  - `4` = Auto-Fix
-- `auto_fix` (Boolean): Enable automatic fixes
-- `highlight_issues` (Boolean): Highlight on canvas
+- `style` (Text): Report style
+  - `'simple'` - Score + summary (default)
+  - `'compact'` - + Issue counts
+  - `'full'` - + All issue details
 
 #### Outputs:
-- `report` (Panel): Main report
+- `report` (Panel): Formatted health report
 - `score` (Number): Health score (0-100)
-- `errors` (Panel): Error list
-- `warnings` (Panel): Warning list
-- `stats` (Panel): Statistics summary
-- `fixed` (Panel): Fixed items
+- `issue_count` (Number): Total issues found
 
-#### Usage Example:
-```
-[Button] → run
-[Slider 0-4] → mode
-[Toggle] → auto_fix
-[Toggle] → highlight_issues
+#### Health Score System:
+- **90-100**: ✅ Excellent - Production ready
+- **70-89**: 👍 Good - Minor improvements needed
+- **50-69**: ⚠️ Needs Attention - Significant issues
+- **0-49**: ❌ Critical - Major problems
 
-     ↓
-
-[All-in-One Python Component]
-
-     ↓
-
-report → [Panel]
-score → [Panel]
-errors → [Panel]
-warnings → [Panel]
-```
+#### When to use:
+- Quick check during work
+- Before saving/sharing files
+- Regular quality verification
+- Team code reviews
 
 ---
 
-### 2. Health Check
+### 2. Issue Finder
 
-**Simplest health check**
+**Detailed issue detection with filtering**
 
 #### Inputs:
-- `x` (Button): Run
-- `style` (Text): 'simple', 'compact', 'full'
+- `run` (Button): Execute search
+- `find_errors` (Boolean): Include errors (default: True)
+- `find_warnings` (Boolean): Include warnings (default: True)
+- `find_info` (Boolean): Include info (default: False)
+- `highlight` (Boolean): Select issues on canvas (default: False)
 
 #### Outputs:
-- `report` (Panel): Report
-- `score` (Number): Score
-- `issues` (Number): Issue count
+- `errors` (List): Error-level issues (GH001, GHRT1)
+- `warnings` (List): Warning-level issues (GH002, GH003, GH016, etc.)
+- `info` (List): Info-level issues (GH004, GH012, GH017, GH018, etc.)
+- `summary` (Text): Issue breakdown by type
 
-#### When to use?
-- Quick check while working
-- Check before saving
-- Simple health verification
+#### Issue Severity Levels:
+- **❌ Errors (2)**: Critical problems affecting functionality
+  - GH001: Dangling Inputs
+  - GHRT1: Runtime Errors
+  
+- **⚠️ Warnings (6)**: Problems requiring attention
+  - GH002: Dangling Outputs
+  - GH003: Unnamed Parameters
+  - GH016: Slow Component Execution (>100ms) ⚡ NEW
+  - GHRT2: Runtime Warnings
+  - And more...
+  
+- **ℹ️ Info (10)**: Suggestions for improvement
+  - GH004: Missing Groups
+  - GH012: Preview Disabled
+  - GH017: Computational Bottleneck (>20% total time) ⚡ NEW
+  - GH018: Heavy Preview Geometry ⚡ NEW
+  - And more...
+
+#### When to use:
+- Focus on specific issue types
+- Pre-delivery quality checks
+- Identifying technical debt
+- Component debugging
 
 ---
 
-### 3. Issue Finder
+### 3. Statistics
 
-**Find specific issue types**
+**Comprehensive document metrics**
 
 #### Inputs:
-- `x` (Button): Run
-- `check_errors` (Boolean): Check errors
-- `check_warnings` (Boolean): Check warnings
-- `check_info` (Boolean): Check info
+- `run` (Button): Generate statistics
 
 #### Outputs:
-- `errors` (List): Error list
-- `warnings` (List): Warning list
-- `info` (List): Info list
-- `summary` (Text): Summary
+- `total_components` (Number): Component count
+- `total_wires` (Number): Wire count
+- `total_groups` (Number): Group count
+- `by_category` (Text): Breakdown by category (Params, Math, Vector, etc.)
+- `detailed_breakdown` (Text): Complete component analysis
 
-#### When to use?
-- Want to see specific issue types only
-- Focus on fixing errors
-- Need detailed issue list
+#### Metrics Provided:
+- Total component/wire/group counts
+- Component distribution by category
+- Most used component types
+- File complexity indicators
+- Documentation metadata
+
+#### When to use:
+- Understanding file complexity
+- Analyzing component distribution
+- Documentation and reporting
+- Refactoring planning
 
 ---
 
-### 4. Auto-Fix
+### 4. Performance Profiler ⚡ NEW v0.3.0
 
-**Automatic fixing tool**
+**Identify performance bottlenecks and optimization opportunities**
 
 #### Inputs:
-- `x` (Button): Run
-- `fix_names` (Boolean): Auto-name parameters
-- `highlight` (Boolean): Highlight issues
-- `name_prefix` (Text): Name prefix (default: "Param")
+- `run` (Button): Start profiling
+- `mode` (Number 0-2): Profiling mode
+  - `0` = Quick (1 pass) - Fast overview
+  - `1` = Detailed (5 passes avg) - Accurate timing
+  - `2` = Live - Continuous monitoring
+- `threshold_ms` (Number): Slow component threshold in milliseconds (default: 100)
+- `auto_select` (Boolean): Select slow components on canvas (default: False)
+- `report_style` (Text): Report format
+  - `'simple'` - Score + top bottlenecks
+  - `'compact'` - + Performance breakdown
+  - `'full'` - + All component timings
 
 #### Outputs:
-- `report` (Text): Fix details
-- `fixed_count` (Number): Number of fixed items
+- `report` (Panel): Performance analysis report
+- `performance_score` (Number): Performance score (0-100)
+- `slow_components` (List): Components exceeding threshold
+- `total_time_ms` (Number): Total execution time
+- `bottlenecks` (Text): Top performance issues
 
-#### When to use?
-- Quickly fix unnamed parameters
-- Find problematic components
-- Batch fixing
+#### Performance Score Calculation:
+- **90-100**: ⚡ Excellent - Highly optimized
+- **70-89**: 👍 Good - Acceptable performance
+- **50-69**: ⚠️ Slow - Optimization recommended
+- **0-49**: 🐌 Critical - Severe bottlenecks
+
+#### Analysis Features:
+- **Execution Time Tracking**: Per-component timing with <1ms overhead
+- **Bottleneck Detection**: Identifies components using >20% total time
+- **Plugin Analysis**: Performance breakdown by plugin/category
+- **Pattern Recognition**: Heavy preview geometry, data tree operations, scripts
+- **Smart Suggestions**: Context-aware optimization advice
+
+#### Profiling Modes Explained:
+- **Quick (0)**: Single execution pass
+  - Use for: Large files (500+ components)
+  - Accuracy: ±10-20ms variation
+  - Speed: <1 second
+  
+- **Detailed (1)**: Average of 5 passes
+  - Use for: Accurate bottleneck identification
+  - Accuracy: ±2-5ms variation
+  - Speed: 5-10 seconds
+  
+- **Live (2)**: Continuous monitoring
+  - Use for: Real-time optimization work
+  - Updates: After each solution
+  - Speed: Minimal overhead
+
+#### When to use:
+- Definition running slowly
+- Before scaling to larger datasets
+- Optimization and refactoring
+- Performance documentation
+- Comparing algorithm alternatives
+
+#### Optimization Suggestions:
+The profiler provides context-aware recommendations:
+- Flatten data trees before heavy operations
+- Use simpler preview geometry
+- Replace slow components with faster alternatives
+- Batch operations instead of iteration
+- Disable unnecessary previews
+- Consider plugin-specific optimizations
 
 ---
 
-### 5. Statistics
+## 🔧 Automation Components (5)
 
-**Document statistics**
+### 5. Parameter Namer
+
+**Batch rename parameters by component type with prefix/suffix support**
 
 #### Inputs:
-- `x` (Button): Run
+- `run` (Button): Execute naming
+- `component_type` (Text): Type to rename
+  - `'Number Slider'` - Rename all number sliders
+  - `'Panel'` - Rename all panels
+  - `'Boolean Toggle'` - Rename all toggles
+  - `'All'` - Rename all parameter components
+- `name_prefix` (Text): Prefix for names (default: "Param")
+- `name_suffix` (Text): Suffix for names (optional)
+- `start_number` (Number): Starting index (default: 1)
 
 #### Outputs:
-- `component_count` (Number): Component count
-- `wire_count` (Number): Wire count
-- `group_count` (Number): Group count
-- `by_category` (Text): Analysis by category
-- `breakdown` (Text): Complete analysis
+- `report` (Text): Rename summary
+- `renamed_count` (Number): Number of components renamed
+- `component_list` (Text): List of renamed components
 
-#### When to use?
-- Check file complexity
-- Analyze component distribution
-- Documentation data
+#### Naming Pattern:
+- Format: `{prefix}_{type}_{number}{suffix}`
+- Example: `Param_Slider_001`, `Input_Panel_01_Required`
 
----
-
-## 📊 Health Score System
-
-### Score Calculation:
-- Start: 100 points
-- Error: -10 points each
-- Warning: -5 points each
-- Info: -2 points each
-
-### Grades:
-- **90-100 points**: ✅ Excellent - Perfect!
-- **70-89 points**: 👍 Good - Nice
-- **50-69 points**: ⚠️ Needs Attention - Requires work
-- **0-49 points**: ❌ Critical - Serious issues
+#### When to use:
+- Cleaning up unnamed parameters
+- Standardizing parameter names
+- Before sharing definitions
+- Documentation preparation
 
 ---
 
-## 🔍 Items Checked
+### 6. Auto Alignment
 
-### ❌ Errors
-1. **GH001: Dangling Inputs**
-   - Unconnected inputs
-   - May use unexpected default values
-   - **Fix**: Connect required inputs
+**Smart component layout with wire-based flow analysis**
 
-2. **GHRT1: Runtime Errors**
-   - Errors during execution
-   - Component not working properly
-   - **Fix**: Check error message and fix
+#### Inputs:
+- `run` (Button): Execute alignment
+- `vertical_spacing` (Number): Spacing between layers (default: 150)
+- `horizontal_spacing` (Number): Spacing within layer (default: 100)
+- `auto_apply` (Boolean): Apply immediately (default: False)
+- `align_parameters` (Boolean): Include parameter components (default: True)
 
-### ⚠️ Warnings
-1. **GH002: Dangling Outputs**
-   - Unused outputs
-   - Unnecessary calculations
-   - **Fix**: Use outputs or remove component
+#### Outputs:
+- `report` (Text): Alignment summary
+- `total_moved` (Number): Components repositioned
+- `layer_count` (Number): Number of logical layers
 
-2. **GH003: Unnamed Parameters**
-   - Parameters without names
-   - Hard to understand
-   - **Fix**: Give meaningful names
-   - **Auto-fix available!**
+#### Algorithm Features:
+- **Wire Flow Analysis**: Creates logical layers based on connections
+- **Longest Path**: Accurate layer assignment for complex graphs
+- **Anchor-Based Positioning**: Prevents component drift
+- **Parameter Alignment**: Horizontally aligns parameter components with targets
+- **Preview Mode**: Test before applying (auto_apply = False)
 
-3. **GHRT2: Runtime Warnings**
-   - Warnings during execution
-   - Potential problems
-   - **Fix**: Check warning message
+#### When to use:
+- Organizing complex definitions
+- After major refactoring
+- Improving readability
+- Before screenshots/documentation
 
-### ℹ️ Info
-1. **GH004: Missing Groups**
-   - No groups
-   - Complex definition needs organization
-   - **Fix**: Create groups with Ctrl+G
+#### Known Limitations:
+- Parameter components with multiple targets may need manual adjustment
+- Very complex cyclic dependencies may need manual intervention
+- Undo with Ctrl+Z if result is unexpected
 
-2. **GH012: Preview Disabled**
-   - Preview turned off
-   - Hard to debug
-   - **Fix**: Enable preview where needed
+---
+
+### 7. Preview Control ⚡ NEW v0.3.0
+
+**Batch enable/disable component previews**
+
+#### Inputs:
+- `run` (Button): Execute control
+- `enable_all` (Boolean): Enable all previews (True = enable, False = disable)
+
+#### Outputs:
+- `report` (Text): Summary of changes
+- `modified_count` (Number): Components modified
+
+#### When to use:
+- Improving viewport performance
+- Debugging specific components
+- Large file optimization
+- Presentation preparation
+
+---
+
+### 8. Display Mode Manager ⚡ NEW v0.3.0
+
+**Control component display mode (Icon/Name/Both)**
+
+#### Inputs:
+- `run` (Button): Execute change
+- `mode` (Number 0-2): Display mode
+  - `0` = Icon only
+  - `1` = Name only
+  - `2` = Icon + Name (default)
+- `apply_to_selection` (Boolean): Only affect selected components (default: False)
+
+#### Outputs:
+- `report` (Text): Change summary
+- `modified_count` (Number): Components modified
+
+#### When to use:
+- Customizing canvas appearance
+- Reducing visual clutter
+- Improving readability
+- Screenshot preparation
+
+---
+
+### 9. Python I/O Manager
+
+**Automatically manage Python script component inputs and outputs**
+
+#### Inputs:
+- `run` (Button): Execute management
+- `auto_detect` (Boolean): Auto-detect required I/O (default: True)
+- `clean_unused` (Boolean): Remove unused I/O (default: False)
+
+#### Outputs:
+- `report` (Text): Management summary
+- `inputs_added` (Number): Inputs added
+- `outputs_added` (Number): Outputs added
+- `removed_count` (Number): Unused I/O removed
+
+#### Features:
+- Scans Python code for variable usage
+- Adds missing inputs/outputs automatically
+- Optionally removes unused I/O
+- Updates component immediately
+
+#### When to use:
+- After modifying Python scripts
+- Cleaning up old code
+- Syncing I/O with script changes
+- Quick Python component setup
 
 ---
 
 ## 💡 Real-World Workflows
 
-### Scenario 1: Quick Check While Working
+### Workflow 1: Daily Development
 ```
-1. Use Health Check component
-2. mode = 0 (Quick Check)
-3. Check score
-4. If 90+ → continue working
-5. If 70- → check issues
-```
-
-### Scenario 2: File Cleanup
-```
-1. Use All-in-One
-2. mode = 1 (Full Analysis)
-3. Review all issues
-4. mode = 4 (Auto-Fix)
-5. auto_fix = True
-6. Manually fix remaining issues
-7. Check again
+1. Work on definition normally
+2. Run Health Check (simple mode) every 30min
+3. Keep score above 80
+4. Fix issues as they appear
+5. Run Performance Profiler if slow
 ```
 
-### Scenario 3: Before Sharing
+### Workflow 2: Pre-Delivery Quality Check
 ```
-1. Use All-in-One
-2. mode = 3 (Find Issues)
-3. Confirm 0 errors
-4. Minimize warnings
-5. Check file size with Statistics
-6. Organize groups/names
-7. Final check
+1. Run Health Check (full mode)
+2. Target: 0 errors, minimize warnings
+3. Run Issue Finder to see all problems
+4. Fix errors first, then warnings
+5. Run Parameter Namer for consistency
+6. Run Auto Alignment for organization
+7. Run Statistics for documentation
+8. Final Health Check → aim for 90+
 ```
 
-### Scenario 4: Large File Optimization
+### Workflow 3: Performance Optimization
 ```
-1. Check status with Statistics
-2. Find problems with Issue Finder
-3. Fix simple ones with Auto-Fix
-4. Manually fix complex ones
-5. Verify improvements with Statistics
+1. Run Performance Profiler (detailed mode)
+2. Identify components >100ms
+3. Check suggestions for each bottleneck
+4. Apply optimizations:
+   - Flatten data trees
+   - Simplify geometry
+   - Replace slow components
+5. Re-run profiler to verify improvements
+6. Repeat until score >80
+```
+
+### Workflow 4: Large File Cleanup
+```
+1. Run Statistics to understand complexity
+2. Run Issue Finder (all types)
+3. Use Parameter Namer on 'All' components
+4. Disable unnecessary previews (Preview Control)
+5. Run Auto Alignment for organization
+6. Run Performance Profiler
+7. Document findings with Health Check (full)
+```
+
+### Workflow 5: Team Collaboration Setup
+```
+1. Establish team standards:
+   - Minimum health score: 80
+   - No errors allowed
+   - All parameters named
+   - Performance score: >70
+2. Run full check before commits
+3. Use consistent naming conventions
+4. Share performance profiling results
+5. Document bottlenecks for review
 ```
 
 ---
 
-## 🎯 Tips & Tricks
+## 🎯 Best Practices
 
-### Performance Tips
-- Start with mode=0 for large files
-- Check frequently while working
-- Aim to maintain 90+ score
+### Quality Standards
+- **Always maintain**: Health score >80
+- **Zero tolerance**: Errors (GH001, GHRT1)
+- **Minimize**: Warnings <5
+- **Document**: Complex algorithms with groups
 
-### Organization Tips
-- Always name parameters
-- Create groups when 10+ components
-- Clean up unused outputs
-- Add comments/scribbles
+### Performance Standards
+- **Target**: Performance score >70
+- **Monitor**: Components >100ms execution time
+- **Optimize**: Bottlenecks using >20% total time
+- **Test**: Profile with realistic data sizes
 
-### Collaboration Tips
-- Always check before sharing
-- Aim for 0 errors
-- Set score standard (e.g., 80+)
-- Establish naming conventions
+### Organization Standards
+- **Name all parameters**: Use Parameter Namer
+- **Group components**: 10+ components = create group
+- **Clean layout**: Use Auto Alignment regularly
+- **Optimize previews**: Disable where not needed
+
+### Collaboration Standards
+- **Pre-commit check**: Run Health Check + Performance Profiler
+- **Documentation**: Include Statistics in README
+- **Naming convention**: Team-wide parameter naming scheme
+- **Performance baseline**: Document initial performance scores
+
+---
+
+## 🔍 Lint Rules Reference
+
+### ❌ Errors (2)
+| Code | Name | Description | Fix |
+|------|------|-------------|-----|
+| GH001 | Dangling Inputs | Unconnected required inputs | Connect all inputs |
+| GHRT1 | Runtime Errors | Component execution errors | Check error message |
+
+### ⚠️ Warnings (6)
+| Code | Name | Description | Fix |
+|------|------|-------------|-----|
+| GH002 | Dangling Outputs | Unused outputs | Use or remove |
+| GH003 | Unnamed Parameters | Parameters without names | Use Parameter Namer |
+| GH016 | Slow Component | Execution >100ms | Optimize or replace |
+| GHRT2 | Runtime Warnings | Component warnings | Check warning |
+| ... | And more | Various warnings | Context-specific |
+
+### ℹ️ Info (10)
+| Code | Name | Description | Suggestion |
+|------|------|-------------|------------|
+| GH004 | Missing Groups | Large file without organization | Create groups (Ctrl+G) |
+| GH012 | Preview Disabled | Components with disabled preview | Enable where useful |
+| GH017 | Performance Bottleneck | Component >20% total time | Critical optimization target |
+| GH018 | Heavy Preview | Large preview geometry | Simplify or disable preview |
+| ... | And more | Various suggestions | Context-specific |
 
 ---
 
 ## 🐛 Troubleshooting
 
 ### "No active Grasshopper document"
-- Check if Grasshopper is open
-- Verify file is loaded
+- **Cause**: Grasshopper not open or no file loaded
+- **Fix**: Open Grasshopper and load a definition
 
-### "Module not found"
-- Check path at top of script
-- Verify path is correct
+### "Module not found" or "Import error"
+- **Cause**: Script path incorrect or file moved
+- **Fix**: Update path at top of script
 ```python
-gh_path = r"C:\Users\...\RhinoScripts\src\gh\standalone"
+# Update this path to match your installation
+sys.path.append(r"C:\...\RhinoScripts\src\gh\standalone")
 ```
 
-### "Analysis is too slow"
-- Use mode=0 for large files
-- Only view Statistics (mode=2)
-- Enable only some checks
+### Performance Profiler returns 0ms for all
+- **Cause**: Document hasn't been solved yet
+- **Fix**: Force a solution (F5) before profiling
 
-### "Auto-fix not working"
-- Verify auto_fix = True
-- Currently only supports parameter naming
-- Other fixes require manual work
+### Auto Alignment creates unexpected layout
+- **Cause**: Complex cyclic dependencies or unusual connections
+- **Fix**: 
+  1. Undo (Ctrl+Z)
+  2. Simplify connections
+  3. Try again with different spacing values
+  4. Use preview mode first (auto_apply = False)
 
----
+### Component drift after repeated alignments
+- **Issue**: This was fixed in v0.3.0-alpha with anchor-based positioning
+- **Fix**: Update to latest version
 
-## 📈 Future Features (Planned)
-
-- [ ] More auto-fixes
-- [ ] Automatic component alignment
-- [ ] Wire cleanup
-- [ ] Performance optimization suggestions
-- [ ] History tracking
-- [ ] Team standard checks
-- [ ] Custom rules
+### Python I/O Manager not detecting variables
+- **Cause**: Non-standard variable naming or complex code
+- **Fix**: Use clear variable names (x, y, a, b, etc.)
 
 ---
 
-## 🎓 Learn More
+## 📈 Version History
+
+### v0.3.0-alpha (Current)
+- ⚡ Added Performance Profiler component
+- 🎨 Split Display component into Preview Control + Display Mode
+- 📊 Added 3 new lint rules (GH016-GH018)
+- 🔧 Enhanced component organization
+- 📝 Consistent naming convention
+
+### v0.2.0-alpha
+- Added Component Organizer
+- Improved auto-alignment algorithm
+
+### v0.1.0-alpha
+- Initial public release
+- 5 core components
+- 15 lint rules
+
+[📖 Full Changelog](../../CHANGELOG.md)
+
+---
+
+## 💬 Getting Help
 
 ### Documentation
-- `README.md` - Project overview
-- `FORMAT_COMPARISON.md` - GHX vs JSON
-- `PROMPTS.md` - How to use Claude
+- [Quick Start Guide](../QUICKSTART.md) - 5-minute setup
+- [Installation Guide](INSTALLATION.md) - Detailed setup
+- [Best Practices](../../docs/best-practices.md) - Quality standards
+- [API Reference](../../docs/api-reference.md) - For developers
 
-### For Developers
-- MCP server with Claude integration
-- More lint rules
-- JSON analysis (100% accurate)
+### Support Channels
+- 🐛 **Bug Reports**: [GitHub Issues](https://github.com/dongwoosuk/grasshopper-quality-analyzer/issues)
+- 💡 **Feature Requests**: [GitHub Discussions](https://github.com/dongwoosuk/grasshopper-quality-analyzer/discussions)
+- 📧 **Email**: dongwoosuk0219@gmail.com
+
+### Contributing
+We welcome contributions! See [CONTRIBUTING.md](../../CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 💬 Feedback
+## 🚀 What's Next?
 
-If you have problems or suggestions:
-1. GitHub Issues (if available)
-2. Team Slack
-3. dongwoosuk0219@gmail.com
+### Planned Features
+- [ ] More auto-fix capabilities (wire cleanup, group creation)
+- [ ] Custom lint rule creation
+- [ ] Performance history tracking
+- [ ] Team standard templates
+- [ ] Integration with version control
+- [ ] Automated testing framework
+
+### Stay Updated
+- ⭐ Star the project on GitHub
+- 👀 Watch for updates
+- 📢 Join discussions
+- 🤝 Contribute improvements
 
 ---
 
 **Happy Grasshoppering! 🦗**
 
-Version: 0.1.0-alpha
-Last Updated: 2025-10-08
+Built with ❤️ for the AEC community  
+Improving computational design, one definition at a time.
