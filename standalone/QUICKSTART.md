@@ -1,5 +1,7 @@
 # ⚡ Quick Start - Get Running in 5 Minutes
 
+**Grasshopper Quality Analyzer v0.3.0-alpha**
+
 ## 🎯 Goal: Complete Your First Analysis in 5 Minutes!
 
 ---
@@ -18,13 +20,13 @@
 **Locate the standalone folder:**
 ```
 Download from: https://github.com/dongwoosuk/grasshopper-quality-analyzer
-Extract to: C:\GH_Tools\standalone\
+Extract to: C:\GH_Tools\grasshopper-quality-analyzer\standalone\
 ```
 
-What's inside:
-- ✅ gh_live_analyzer.py (core engine!)
-- ✅ component_*.py (5 files)
-- ✅ Documentation
+**What's inside:**
+- ✅ `gh_live_analyzer.py` (core engine, ~3,900 lines)
+- ✅ 9 component files (`component_*.py`)
+- ✅ Complete documentation
 
 ---
 
@@ -42,9 +44,11 @@ Math → Script → Python
 
 #### C. Paste Test Script
 ```python
-"""Quick Test"""
+"""Quick Connection Test"""
 import sys
-gh_path = r"C:\GH_Tools\standalone"  # UPDATE THIS PATH!
+
+# UPDATE THIS PATH to your actual location!
+gh_path = r"C:\GH_Tools\grasshopper-quality-analyzer\standalone"
 sys.path.insert(0, gh_path)
 
 from gh_live_analyzer import GHLiveAnalyzer
@@ -54,9 +58,9 @@ if x:
     stats = analyzer.get_statistics()
     score = analyzer.calculate_health_score()
     
-    a = f"✅ SUCCESS!\nScore: {score}/100\nComponents: {stats['total_components']}"
+    a = f"✅ CONNECTION SUCCESS!\n\nHealth Score: {score}/100\nComponents: {stats['total_components']}\nWires: {stats['total_wires']}\n\nReady to analyze!"
 else:
-    a = "Press button"
+    a = "Click button to test connection"
 ```
 
 #### D. Connect & Run
@@ -70,67 +74,78 @@ a output → [Panel]
 
 #### E. Click Button!
 ```
-Panel shows "✅ SUCCESS!" = You're ready!
+✅ Panel shows "CONNECTION SUCCESS!" = You're ready!
+❌ Error message? → Check path in step C
 ```
 
 ---
 
-### 3️⃣ Real Usage (2 min)
+### 3️⃣ Choose Your Component (2 min)
 
-#### Upgrade to All-in-One Component
+#### For First-Time Users: Health Check (Recommended ⭐)
 
-**Add New Python Component:**
+**Simple quality overview in seconds**
 
-1. **Copy Code**
-   - Open `component_all_in_one.py`
-   - Copy all
+1. **Add New Python Component**
+
+2. **Copy Code**
+   - Open `component_health_check.py` in text editor
+   - Copy entire contents
    - Paste into Python component
 
-2. **Connect Inputs**
-   ```
-   [Button] → run
-   [Slider 0-4] → mode (default: 0)
+3. **Update Path** (line 20-25)
+   ```python
+   # UPDATE THIS PATH!
+   gh_path = r"C:\GH_Tools\grasshopper-quality-analyzer\standalone"
    ```
 
-3. **Connect Outputs**
+4. **Connect Inputs**
+   ```
+   [Button] → run
+   [Text "simple"] → style (optional, default is "simple")
+   ```
+
+5. **Connect Outputs**
    ```
    report → [Panel]
    score → [Panel]
+   issue_count → [Panel]
    ```
 
-4. **Run!**
+6. **Run!**
    ```
-   Click button → Panel shows report
+   Click button → See your health score!
    ```
 
 ---
 
-## 🎨 Mode Explanation (Slider values)
+## 🎨 Understanding Your Results
 
+### Health Score Interpretation:
 ```
-0 = Quick Check    (fastest) ⚡
-1 = Full Analysis  (most detailed) 📊
-2 = Statistics     (stats only) 📈
-3 = Find Issues    (issue search) 🔍
-4 = Auto-Fix       (auto repair) 🔧
+90-100 ✅ Excellent    - Production ready!
+70-89  👍 Good         - Minor improvements needed
+50-69  ⚠️  Needs Work  - Significant issues found
+0-49   ❌ Critical     - Major problems exist
 ```
 
----
-
-## ✅ Success Confirmation
-
-### You should see:
+### Example Output:
 ```
 ==================================================
 GRASSHOPPER HEALTH CHECK
 ==================================================
 
-📊 Score: 85/100
-🔧 Components: 15
-🔗 Connections: 23
-📁 Groups: 2
+📊 Health Score: 85/100
+🔧 Total Components: 42
+🔗 Total Wires: 67
+📁 Groups: 3
 
-✅ No issues found!
+🔍 Issues Found:
+  ❌ Errors: 0
+  ⚠️  Warnings: 3
+  ℹ️  Info: 5
+
+✅ Good quality! Minor improvements suggested.
 ==================================================
 ```
 
@@ -138,102 +153,192 @@ GRASSHOPPER HEALTH CHECK
 
 ## 🎯 What You Can Do Now
 
-### Basic Usage
+### Quick Quality Checks (Health Check)
 ```python
-# Check frequently while working
-mode = 0  # Quick Check
-[Click Button]
-
-# Check score
-90+ = ✅ Perfect!
-70-89 = 👍 Good
-50-69 = ⚠️  Needs attention
-0-49 = ❌ Requires fixes
+Work on definition
+   ↓
+Click button every 30 min
+   ↓
+Check score
+   ↓
+Keep score above 80!
 ```
 
-### Problem Solving
+### Find Specific Problems (Issue Finder)
 ```python
-# Find issues
-mode = 3  # Find Issues
-[Click Button]
-→ Detailed issue list
-
-# Auto-fix
-mode = 4  # Auto-Fix
-auto_fix = True
-[Click Button]
-→ Auto-names parameters
+Use component_issue_finder.py
+   ↓
+Enable: errors + warnings
+   ↓
+Review detailed issue list
+   ↓
+Fix problems
 ```
+
+### Performance Analysis ⚡ NEW
+```python
+Use component_performance_profiler.py
+   ↓
+mode = 1 (Detailed)
+   ↓
+Find slow components (>100ms)
+   ↓
+Optimize bottlenecks
+```
+
+---
+
+## 📦 All 9 Components at a Glance
+
+### Analysis Tools (4)
+| Component | Use When | Difficulty |
+|-----------|----------|------------|
+| **Health Check** | Quick quality check | ⭐ Easy |
+| **Issue Finder** | Need specific problem details | ⭐⭐ Medium |
+| **Statistics** | Want component breakdown | ⭐ Easy |
+| **Performance Profiler** ⚡ | Definition is slow | ⭐⭐ Medium |
+
+### Automation Tools (5)
+| Component | Use When | Difficulty |
+|-----------|----------|------------|
+| **Parameter Namer** | Need to rename sliders/panels | ⭐⭐ Medium |
+| **Auto Alignment** | Layout is messy | ⭐⭐⭐ Advanced |
+| **Preview Control** | Need to enable/disable all previews | ⭐ Easy |
+| **Display Mode** | Want Icon/Name/Both control | ⭐ Easy |
+| **Python I/O Manager** | Auto-manage Python script I/O | ⭐⭐ Medium |
 
 ---
 
 ## 🐛 Troubleshooting
 
-### "Module not found"
+### "Module not found" Error
 ```python
-# Path is incorrect
-# Update at top of script:
-gh_path = r"ACTUAL_PATH"
+# Issue: Python can't find gh_live_analyzer.py
+# Fix: Update path in your script
+
+# Correct format:
+gh_path = r"C:\Full\Path\To\standalone"
 
 # How to find correct path:
-# 1. Open standalone folder in Explorer
-# 2. Copy address bar
-# 3. Use as r"copied_path"
+# 1. Open standalone folder in Windows Explorer
+# 2. Click address bar
+# 3. Copy the full path
+# 4. Paste in script with r"..." format
 ```
 
-### "No active document"
+### "No active Grasshopper document" Error
 ```
-→ Check if Grasshopper file is open
-→ Restart Rhino
+Issue: No Grasshopper file loaded
+Fix: 
+  1. Create new GH file or open existing one
+  2. Try again
+  3. If still failing, restart Rhino
 ```
 
-### "Too slow"
+### Script Runs But Shows Nothing
 ```
-→ Use mode = 0 (fastest)
-→ For large files (1000+ components)
+Issue: Output not connected or button not clicked
+Fix:
+  1. Connect outputs to Panels
+  2. Make sure button is connected to 'run' input
+  3. Click the button
+```
+
+### Analysis is Slow (>10 seconds)
+```
+Issue: Large file (500+ components)
+Tips:
+  - Use Health Check instead of full analysis
+  - Use style='simple' for faster results
+  - Consider Performance Profiler to find bottlenecks
 ```
 
 ---
 
 ## 📚 Next Steps
 
-### Learn More
+### 1. Master the Basics
 ```
-1. USER_GUIDE.md - Complete guide
-2. Try all 5 components
-3. Integrate into workflow
+✅ Health Check → Use daily
+✅ Issue Finder → Use before sharing
+✅ Statistics → Understand your file
 ```
 
-### Share with Team
+### 2. Explore Advanced Features
 ```
-1. Introduce to teammates
-2. Set standard score (e.g., 80+)
-3. Include in code review
+⚡ Performance Profiler → Find bottlenecks
+🔧 Parameter Namer → Standardize names
+📐 Auto Alignment → Organize layout
+```
+
+### 3. Read Full Documentation
+```
+📖 USER_GUIDE.md → Complete component guide
+📖 INSTALLATION.md → Advanced setup options
+📖 ../docs/best-practices.md → Quality standards
+```
+
+### 4. Integrate Into Workflow
+```
+✨ Run Health Check every 30 minutes
+✨ Check before saving
+✨ Verify before sharing with team
+✨ Profile performance for large definitions
+```
+
+---
+
+## 💡 Pro Tips
+
+### Daily Workflow
+```
+Start work
+  ↓
+Quick Health Check
+  ↓
+Work for 30 min
+  ↓
+Check again (keep score >80)
+  ↓
+Before saving → Full check
+```
+
+### Before Sharing
+```
+1. Health Check → Target 90+
+2. Issue Finder → Fix all errors
+3. Performance Profiler → Check no major bottlenecks
+4. Statistics → Document complexity
+5. Share!
+```
+
+### Team Standards
+```
+Minimum Score: 80/100
+Zero Errors: Required
+Parameter Naming: All must have names
+Performance: No components >200ms
 ```
 
 ---
 
 ## 🎉 Congratulations!
 
-**You mastered the Grasshopper analysis tool in 5 minutes!**
+**You've mastered the basics in 5 minutes!**
 
-### Next Checks:
-- [ ] Test on real project
-- [ ] Try all modes
-- [ ] Use Auto-Fix
-- [ ] Read USER_GUIDE.md
-- [ ] Share with team
+### Ready for More?
+- [📖 Complete User Guide](docs/USER_GUIDE.md) - All 9 components detailed
+- [📖 Installation Guide](docs/INSTALLATION.md) - Advanced setup
+- [🌏 한글 가이드](docs/USER_GUIDE_KO.md) - Korean documentation
+- [📊 Best Practices](../docs/best-practices.md) - Quality standards
 
 ---
 
-## 💡 Tips
+## 🔗 Quick Links
 
-```
-✨ Once before starting work
-✨ Every 30 minutes
-✨ Always before saving
-✨ Must before sharing!
-```
+- **GitHub**: [grasshopper-quality-analyzer](https://github.com/dongwoosuk/grasshopper-quality-analyzer)
+- **Issues**: [Report bugs](https://github.com/dongwoosuk/grasshopper-quality-analyzer/issues)
+- **Discussions**: [Ask questions](https://github.com/dongwoosuk/grasshopper-quality-analyzer/discussions)
 
 ---
 
@@ -247,15 +352,6 @@ Result: Better Grasshopper definitions! 🦗
 
 ---
 
-## 🔗 Links
-
-- **Full Guide**: USER_GUIDE.md
-- **Detailed Setup**: INSTALLATION.md
-- **Project Info**: README.md
-- **Complete Docs**: COMPLETE.md
-
----
-
-Questions? Check USER_GUIDE.md or open an issue on GitHub!
-
-**Start now! 🚀**
+Version: 0.3.0-alpha  
+Last Updated: 2025-11-15  
+For support: dongwoosuk0219@gmail.com
