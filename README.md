@@ -196,14 +196,18 @@ python mcp_server.py
 - [Best Practices](docs/best-practices.md) - Quality standards
 
 ### User Guides
-- [Standalone User Guide](standalone/docs/USER_GUIDE.md) - Complete guide
-- [MCP User Guide](docs/user-guide.md) - How to use with Claude
+- [Standalone User Guide](standalone/docs/USER_GUIDE.md) - Complete guide ([한글](standalone/docs/USER_GUIDE_KO.md))
+- [MCP User Guide](docs/user-guide.md) - How to use with Claude ([한글](docs/user-guide-ko.md))
 - [API Reference](docs/api-reference.md) - For developers
 
 ### Advanced
 - [Installation (Standalone)](standalone/docs/INSTALLATION.md) - Detailed setup
 - [Installation (MCP)](docs/installation-mcp.md) - MCP server setup
 - [Changelog](CHANGELOG.md) - Version history
+
+### 🌏 Languages
+- 🇺🇸 English (Default)
+- 🇰🇷 한국어 - [Standalone Guide](standalone/docs/USER_GUIDE_KO.md) | [MCP Guide](docs/user-guide-ko.md)
 
 ---
 
